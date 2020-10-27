@@ -1,4 +1,4 @@
-package com.example.habit.ui.home;
+package com.example.habit.ui.more;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,13 +14,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.habit.R;
 
-public class HomeFragment extends Fragment {
+public class MoreFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        View root = inflater.inflate(R.layout.fragment_more, container, false);
 
         return root;
     }

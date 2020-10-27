@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Habit {
     private String mName;
     private int mAmountOfDays;
+    private int mCurrentDay;
     private ArrayList<Description> mDescriptions;
     private boolean mComplete;
 
@@ -16,6 +17,8 @@ public class Habit {
         mName = name;
         mAmountOfDays = amountOfDays;
         mDescriptions = descriptions;
+        mCurrentDay = 0;
+        mComplete = false;
     }
 
     public Habit(String name, int amountOfDays) {
@@ -26,6 +29,12 @@ public class Habit {
         for(int i = 0; i < mAmountOfDays; i++){
             mDescriptions.add(new Description(mName, i));
         }
+        mCurrentDay = 0;
+        mComplete = false;
+    }
+
+    public int getCurrentDay() {
+        return mCurrentDay;
     }
 
     public String getName() {
@@ -56,6 +65,10 @@ public class Habit {
     // устанавливает описание на определенного дня
     public void setDescription(int numOfDay, String description){
         mDescriptions.add(numOfDay, new Description(description, mName, numOfDay));
+    }
+
+    public void setCurrentDay(int currentDay) {
+        mCurrentDay = currentDay;
     }
 
 }

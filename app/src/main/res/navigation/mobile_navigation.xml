@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_list_of_task">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.habit.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_list_of_task"
+        android:name="com.example.habit.ui.listOfHabits.ListOfHabitsFragment"
+        android:label="@string/title_list_of_habits"
+        tools:layout="@layout/fragment_list_of_habits" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.habit.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_statistic"
+        android:name="com.example.habit.ui.statistic.StatisticFragment"
+        android:label="@string/title_statistic"
+        tools:layout="@layout/fragment_statistic" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.habit.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_more"
+        android:name="com.example.habit.ui.more.MoreFragment"
+        android:label="@string/title_more"
+        tools:layout="@layout/fragment_more" />
 </navigation>
