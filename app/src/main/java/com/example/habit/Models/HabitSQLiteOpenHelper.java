@@ -56,7 +56,7 @@ public class HabitSQLiteOpenHelper extends SQLiteOpenHelper {
 //         task = new ChangeTimeBusinessAsync(getWritableDatabase());
 //        task.doInBackground(newDescription, oldDescription);
 //    }
-    
+
     ArrayList<Habit> getFulledListOfActiveHabit(){
 
         ArrayList<Habit> descriptionArrayList = new ArrayList<>();

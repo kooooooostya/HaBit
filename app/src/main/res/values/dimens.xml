@@ -5,4 +5,5 @@
     <dimen name="margin_large">16dp</dimen>
     <dimen name="text_size_xlarge">36sp</dimen>
     <dimen name="corner_radius">6dp</dimen>
+    <dimen name="text_size_xx_large">128sp</dimen>
 </resources>

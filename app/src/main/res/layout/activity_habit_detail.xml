@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/margin_large"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Habit name"
@@ -17,63 +18,54 @@
 
     <com.example.habit.CustomView.ProgressTable
         android:id="@+id/progressTable"
-        android:layout_width="140dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.012"
-        app:numberOfActivePoints="10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0"
+        app:numberOfActivePoints="10"
         app:numberOfPoints="21" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/detail_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="4"
         android:textSize="@dimen/text_size_xx_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.356" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/detail_description"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:inputType="textMultiLine"
-
         android:gravity="start"
-        app:layout_constraintBottom_toBottomOf="@+id/progressTable"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/progressTable"
-        app:layout_constraintTop_toTopOf="@+id/progressTable" />
 
-    <Button
-        android:id="@+id/button_confirm"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="2"
-        android:text="@string/button_confirm"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/floating_button"
+        app:layout_constraintEnd_toEndOf="@+id/progressTable"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/progressTable" />
+        app:layout_constraintTop_toBottomOf="@+id/progressTable"
+        android:layout_marginBottom="@dimen/margin_large"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_add_24"
+        android:src="@drawable/ic_baseline_done_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.961" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

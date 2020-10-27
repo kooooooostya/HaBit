@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ProgressTable">
+        <attr name="numberOfPoints" format="integer"/>
+        <attr name="numberOfActivePoints" format="integer"/>
+        <attr name="circleColor" format="color"/>
+        <attr name="backgroundColor" format="color"/>
+    </declare-styleable>
+</resources>
