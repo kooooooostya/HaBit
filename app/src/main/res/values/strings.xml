@@ -7,4 +7,8 @@
 
     <string name="item_habit_button_text">Complete</string>
     <string name="button_confirm">Confirm</string>
+    <string name="content_desc_add_new_habit">add new habit</string>
+    <string name="add_write_name">Write name of the habit</string>
+    <string name="add_write_description">Write description of the habit</string>
+    <string name="add_write_num_day">Inter the number of days</string>
 </resources>

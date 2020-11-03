@@ -16,7 +16,7 @@
         android:text="custom component"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/item_progressTable"
+        app:layout_constraintBottom_toTopOf="@+id/detail_progressTable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.41" />
 
     <com.example.habit.CustomView.ProgressTable
-        android:id="@+id/item_progressTable"
+        android:id="@+id/detail_progressTable"
         android:layout_width="300dp"
         android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"

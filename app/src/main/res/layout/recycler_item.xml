@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="@dimen/corner_radius"
     android:layout_margin="@dimen/corner_radius"
+    android:id="@+id/item_cart_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
@@ -38,7 +39,7 @@
             app:layout_constraintVertical_bias="0.086" />
 
         <com.example.habit.CustomView.ProgressTable
-            android:id="@+id/item_progressTable"
+            android:id="@+id/detail_progressTable"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -12,19 +12,19 @@
         android:layout_height="wrap_content"
         android:text="Habit name"
         android:textSize="@dimen/text_size_xlarge"
-        app:layout_constraintBottom_toTopOf="@+id/item_progressTable"
+        app:layout_constraintBottom_toTopOf="@+id/detail_progressTable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.example.habit.CustomView.ProgressTable
-        android:id="@+id/item_progressTable"
+        android:id="@+id/detail_progressTable"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/item_count_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_num"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/item_count_tv"
-        app:layout_constraintTop_toTopOf="@+id/item_count_tv"
+        app:layout_constraintStart_toEndOf="@+id/detail_num"
+        app:layout_constraintTop_toTopOf="@+id/detail_num"
         app:layout_constraintVertical_bias="0.0"
         app:numberOfActivePoints="10"
         app:numberOfPoints="21" />
@@ -46,15 +46,15 @@
         android:id="@+id/detail_description"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="start"
+        android:layout_marginBottom="@dimen/margin_large"
 
+        android:gravity="start"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/detail_floating_button"
-        app:layout_constraintEnd_toEndOf="@+id/item_progressTable"
+        app:layout_constraintEnd_toEndOf="@+id/detail_progressTable"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/item_count_tv"
-        app:layout_constraintTop_toBottomOf="@+id/item_progressTable"
-        android:layout_marginBottom="@dimen/margin_large"
+        app:layout_constraintStart_toStartOf="@+id/detail_num"
+        app:layout_constraintTop_toBottomOf="@+id/detail_progressTable"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -67,5 +67,7 @@
         app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961" />
+        app:layout_constraintVertical_bias="0.961"
+        android:contentDescription="@string/content_desc_add_new_habit" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
