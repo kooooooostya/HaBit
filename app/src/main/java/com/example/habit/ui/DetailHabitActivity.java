@@ -24,6 +24,9 @@ public class DetailHabitActivity extends AppCompatActivity {
     private FloatingActionButton mActionButton;
     private Habit mHabit;
 
+
+    private boolean isSecondClick = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +46,24 @@ public class DetailHabitActivity extends AppCompatActivity {
         mProgressTable.setPointsNum(mHabit.getAmountOfDays());
         mProgressTable.setActivePointsNum(mHabit.getCurrentDay());
 
-        //updates the habit value and updates it in the database
+        //on the first press it updates the mHabit value and the icon on the button,
+        //on the second press it calls finish
         mActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHabit.setDescription(mHabit.getCurrentDay(), mEditTextDesc.getText().toString());
-                mHabit.incrementCurrentDay();
-                //TODO save changes to db
-                onBackPressed();
+                if(isSecondClick){
+                    finish();
+                }else {
+                    mHabit.setDescription(mHabit.getCurrentDay(), mEditTextDesc.getText().toString());
+                    mHabit.incrementCurrentDay();
+                    Intent resultData = new Intent();
+                    resultData.putExtra(ListOfHabitsFragment.INTENT_EXTRA_DATA, mHabit);
+                    mProgressTable.completeOne();
+                    mTextViewNum.setText(String.valueOf(mHabit.getCurrentDay()));
+                    mActionButton.setImageResource(R.drawable.ic_baseline_arrow_back_24);
+                    isSecondClick = true;
+                }
+
             }
         });
 

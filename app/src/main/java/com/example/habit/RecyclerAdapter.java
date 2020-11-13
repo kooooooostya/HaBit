@@ -1,5 +1,7 @@
 package com.example.habit;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.habit.CustomView.ProgressTable;
 import com.example.habit.Models.Habit;
 import com.example.habit.ui.DetailHabitActivity;
+import com.example.habit.ui.listOfHabits.ListOfHabitsFragment;
 
 import java.util.ArrayList;
 
@@ -20,8 +23,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.HabitV
 
     ArrayList<Habit> mHabitArrayList;
 
-    public RecyclerAdapter(ArrayList<Habit> habitArrayList) {
+    //saved the activity to start startActivityForResult when the element is clicked
+    private final Activity mActivity;
+
+    public RecyclerAdapter(ArrayList<Habit> habitArrayList, final Activity activity) {
         mHabitArrayList = habitArrayList;
+
+        mActivity = activity;
     }
 
     @NonNull
@@ -44,7 +52,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.HabitV
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), DetailHabitActivity.class);
                 intent.putExtra(DetailHabitActivity.EXTRA_PARCEL_DATA, mHabitArrayList.get(position));
-                v.getContext().startActivity(intent);
+                mActivity.startActivityForResult(intent, ListOfHabitsFragment.REQUEST_CODE_DETAIL);
             }
         });
     }

@@ -11,4 +11,5 @@
     <string name="add_write_name">Write name of the habit</string>
     <string name="add_write_description">Write description of the habit</string>
     <string name="add_write_num_day">Inter the number of days</string>
+    <string name="detail_write_description">Write what you think about it</string>
 </resources>

@@ -56,11 +56,10 @@ public class Habit implements Parcelable {
         mDescription = in.readString();
         mAmountOfDays = in.readInt();
         mCurrentDay = in.readInt();
-        //TODO протестить ибо вохможно ткт мясо(информативно)
         Description[] descriptions = in.createTypedArray(Description.CREATOR);
         mDescriptionArrayList = new ArrayList<>();
         if(descriptions != null) mDescriptionArrayList.addAll(Arrays.asList(descriptions));
-        mComplete = in.readByte() != 0;
+        mComplete = in.readByte() == 1;
     }
 
     public int getCurrentDay() {

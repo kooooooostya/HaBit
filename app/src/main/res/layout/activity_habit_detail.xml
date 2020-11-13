@@ -47,7 +47,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/margin_large"
-
+        android:hint="@string/detail_write_description"
         android:gravity="start"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/detail_floating_button"

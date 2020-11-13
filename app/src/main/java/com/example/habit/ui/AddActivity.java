@@ -51,7 +51,7 @@ public class AddActivity extends AppCompatActivity {
                     );
                     Intent intent = new Intent();
                     intent.putExtra(ListOfHabitsFragment.INTENT_EXTRA_DATA, mHabit);
-                    setResult(ListOfHabitsFragment.INTENT_REQUEST_CODE, intent);
+                    setResult(ListOfHabitsFragment.REQUEST_CODE_ADD, intent);
                     finish();
                 }
             }
