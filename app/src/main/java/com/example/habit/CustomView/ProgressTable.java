@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import com.example.habit.R;
 
@@ -21,14 +20,9 @@ public class ProgressTable extends View {
     private int mRowCount;
     private int mColumnCount;
 
-    private Paint mAccentPaint;
-    private Paint mBackgroundPaint;
+    private final Paint mAccentPaint;
+    private final Paint mBackgroundPaint;
 
-
-
-    public ProgressTable(Context context) {
-        super(context);
-    }
 
     public ProgressTable(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -91,12 +85,12 @@ public class ProgressTable extends View {
         mAccentPaint.setStrokeWidth((float)circleRadius / 10);
         mBackgroundPaint.setStrokeWidth((float)circleRadius / 10);
 
-        int iCountActive = mActivePointsNum - 1;
-        int iCountPoints = mPointsNum - 1;
+        int iCountActive = mActivePointsNum;
+        int iCountPoints = mPointsNum;
 
         for (double vertical = 0; vertical < mHeight; vertical +=  cageHeight){
             for (double horizontal = 0; horizontal < mWidth; horizontal += cageWidth){
-                if(iCountPoints < 0) continue;
+                if(iCountPoints <= 0) continue;
                 double centerCircleY = vertical + cageHeight / 2;
                 double centerCircleX = horizontal + cageWidth / 2;
 
@@ -105,7 +99,7 @@ public class ProgressTable extends View {
                         (float)circleRadius,
                         mAccentPaint);
 
-                if(iCountActive < 0){
+                if(iCountActive > 0){
                     canvas.drawCircle((float) centerCircleX,
                             (float)centerCircleY,
                             (float)internalCircleRadius,

@@ -3,6 +3,8 @@ package com.example.habit.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -10,7 +12,7 @@ import java.util.Arrays;
 Представляет привычку с именем, интервалом, описанием к каждому дню
 Является базовой моделью
  */
-public class Habit implements Parcelable {
+public class Habit implements Parcelable, Cloneable {
     private String mName;
     private String mDescription;
     private final int mAmountOfDays;
@@ -27,13 +29,14 @@ public class Habit implements Parcelable {
         mComplete = false;
     }
 
-    public Habit(String name, String description, int amountOfDays, ArrayList<Description> descriptionArrayList) {
+    public Habit(String name, String description, int amountOfDays, int currentDay,
+                 boolean complete, ArrayList<Description> descriptionArrayList) {
         mName = name;
         mDescription = description;
         mAmountOfDays = amountOfDays;
         mDescriptionArrayList = descriptionArrayList;
-        mCurrentDay = 0;
-        mComplete = false;
+        mCurrentDay = currentDay;
+        mComplete = complete;
     }
 
     public Habit(String name, String description, int amountOfDays) {
@@ -78,16 +81,16 @@ public class Habit implements Parcelable {
         return mDescription;
     }
 
-    public void setDescription(String description) {
-        mDescription = description;
-    }
-
     public int getAmountOfDays() {
         return mAmountOfDays;
     }
 
+    //Возвращает описание на определенный день если оно есть, если нет возвращает пустой Description
     public Description getDescription(int numOfDay){
-        return mDescriptionArrayList.get(numOfDay);
+        if(mDescriptionArrayList.size() > numOfDay){
+            return mDescriptionArrayList.get(numOfDay);
+        }
+        return new Description("", "", 0);
     }
 
     public boolean isComplete() {
@@ -105,7 +108,7 @@ public class Habit implements Parcelable {
 
     // устанавливает описание на определенного дня
     public void setDescription(int numOfDay, String description){
-        mDescriptionArrayList.add(numOfDay, new Description(description, mName, numOfDay));
+        mDescriptionArrayList.add(new Description(description, mName, numOfDay));
     }
 
     public void setCurrentDay(int currentDay) {
@@ -155,5 +158,11 @@ public class Habit implements Parcelable {
         }
     };
 
-
+    @NonNull
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        super.clone();
+        return new Habit(this.mName, this.mDescription, this.mAmountOfDays, this.mCurrentDay,
+                this.mComplete, (ArrayList<Description>) this.mDescriptionArrayList.clone());
+    }
 }

@@ -19,12 +19,9 @@ import com.example.habit.RecyclerAdapter;
 import com.example.habit.ui.AddActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-
 public class ListOfHabitsFragment extends Fragment {
 
     public static final int REQUEST_CODE_ADD = 1;
-    public static final int REQUEST_CODE_DETAIL = 2;
     //Result code in intent means everything is fine
     public static final String INTENT_EXTRA_DATA = "data";
 
@@ -32,8 +29,6 @@ public class ListOfHabitsFragment extends Fragment {
     RecyclerAdapter mRecyclerAdapter;
     FloatingActionButton mActionButtonAdd;
     HabitSQLiteOpenHelper mHabitSQLiteOpenHelper;
-
-    ArrayList<Habit> mHabitArrayList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,14 +38,8 @@ public class ListOfHabitsFragment extends Fragment {
         mActionButtonAdd = root.findViewById(R.id.list_floating_button);
 
         mHabitSQLiteOpenHelper = new HabitSQLiteOpenHelper(getContext());
-        mHabitArrayList = mHabitSQLiteOpenHelper.getFulledListOfActiveHabit();
 
-
-//        mHabitArrayList.add(new Habit("kykat", "", 13));
-//        mHabitArrayList.add(new Habit("pukat","",7));
-//        mHabitArrayList.add(new Habit("spat", "",21));
-
-        mRecyclerAdapter = new RecyclerAdapter(mHabitArrayList, getActivity());
+        mRecyclerAdapter = new RecyclerAdapter(mHabitSQLiteOpenHelper.getFulledListOfActiveHabit());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         mRecyclerView.setAdapter(mRecyclerAdapter);
@@ -72,18 +61,16 @@ public class ListOfHabitsFragment extends Fragment {
         if(requestCode == REQUEST_CODE_ADD){
             assert data != null;
             Habit habit = data.getParcelableExtra(INTENT_EXTRA_DATA);
-            mHabitArrayList.add(habit);
+            mRecyclerAdapter.getHabitArrayList().add(habit);
             mRecyclerAdapter.notifyDataSetChanged();
             mHabitSQLiteOpenHelper.insertToDBAsync(habit);
         }
-        if(requestCode == REQUEST_CODE_DETAIL){
-            assert data != null;
-            Habit habit = data.getParcelableExtra(INTENT_EXTRA_DATA);
-            //TODO Доработать, нужно где-то взять habit до изменения
-//            mHabitSQLiteOpenHelper.changeAsync(habit);
-            mHabitArrayList.add(habit);
-            mRecyclerAdapter.notifyDataSetChanged();
+    }
 
-        }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mRecyclerAdapter.setHabitArrayList(mHabitSQLiteOpenHelper.getFulledListOfActiveHabit());
+        mRecyclerAdapter.notifyDataSetChanged();
     }
 }

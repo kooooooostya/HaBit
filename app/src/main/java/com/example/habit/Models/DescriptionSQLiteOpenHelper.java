@@ -6,17 +6,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.AsyncTask;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.Objects;
+
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.functions.Action;
+import io.reactivex.rxjava3.observers.DisposableCompletableObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class DescriptionSQLiteOpenHelper extends SQLiteOpenHelper {
 
@@ -27,11 +24,11 @@ public class DescriptionSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DESCRIPTION = "desc";
     private static final String COLUMN_NUM_OF_DAY = "num";
 
-    private Context mContext;
+    //private final Context mContext;
 
     DescriptionSQLiteOpenHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        mContext = context;
+        //mContext = context;
     }
 
     @Override
@@ -54,16 +51,31 @@ public class DescriptionSQLiteOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void insertToDBAsync(Description description){
-        AddDescriptionAsync task = new AddDescriptionAsync(getWritableDatabase());
-        task.doInBackground(description);
+    //inserts Description to db
+    void insertToDBAsync(final Description description){
+        Completable.fromAction(new Action() {
+            @Override
+            public void run() {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(COLUMN_NAME_OF_HABIT, description.getNameOfHabit());
+                contentValues.put(COLUMN_DESCRIPTION, description.getDescription());
+                contentValues.put(COLUMN_NUM_OF_DAY, description.getDayNumber());
+                getWritableDatabase().insert(DB_NAME, null, contentValues);
+            }
+        }).subscribeOn(Schedulers.io()).subscribe(new DisposableCompletableObserver() {
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                e.printStackTrace();
+            }
+        });
+
+
     }
-
-//    void changeAsync(Description newDescription, Description oldDescription){
-//         task = new ChangeTimeBusinessAsync(getWritableDatabase());
-//        task.doInBackground(newDescription, oldDescription);
-//    }
-
 
     //Получает на вход имя задачи для которой необходимо описание,
     // на выход дает список описаний отсортированый(певый день под индексом 0 и т.д.)
@@ -75,7 +87,7 @@ public class DescriptionSQLiteOpenHelper extends SQLiteOpenHelper {
             Cursor cursor = this.getReadableDatabase().query(DB_NAME,
                     new String[]{COLUMN_ID, COLUMN_NAME_OF_HABIT, COLUMN_DESCRIPTION, COLUMN_NUM_OF_DAY},
                     COLUMN_NAME_OF_HABIT + " = ?", new String[]{nameOfHabit},
-                    null, null, COLUMN_NUM_OF_DAY + " ASK");
+                    null, null, COLUMN_NUM_OF_DAY + " DESC");
             if(cursor.moveToFirst()){
                 do {
                         Description description = new Description(cursor.getString(1),
@@ -86,57 +98,10 @@ public class DescriptionSQLiteOpenHelper extends SQLiteOpenHelper {
                 cursor.close();
             }
         }catch (SQLException e) {
-            Toast.makeText(mContext, "db error", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mContext, "db error", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
         return descriptionArrayList;
     }
-
-    //Вставляет description в базу данных
-    private static class AddDescriptionAsync extends AsyncTask<Description, Void, Boolean> {
-
-        SQLiteDatabase mDatabase;
-
-        AddDescriptionAsync(SQLiteDatabase db) {
-            mDatabase = db;
-        }
-        @Override
-        protected Boolean doInBackground(Description... descriptions) {
-            try {
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(COLUMN_NAME_OF_HABIT, descriptions[0].getNameOfHabit());
-                contentValues.put(COLUMN_DESCRIPTION, descriptions[0].getDescription());
-                contentValues.put(COLUMN_NUM_OF_DAY, descriptions[0].getDayNumber());
-                mDatabase.insert(DB_NAME, null, contentValues);
-                return true;
-            } catch (SQLException e) {
-                return false;
-            }
-        }
-    }
-
-//    private static class ChangeTimeBusinessAsync extends AsyncTask<Description, Void, Integer> {
-//
-//        SQLiteDatabase mDatabase;
-//
-//        ChangeTimeBusinessAsync(SQLiteDatabase db) {
-//            mDatabase = db;
-//        }
-//
-//        @Override
-//        protected Integer doInBackground(Description... descriptions) {
-//            try {
-//                //businesses[0] - new, businesses[1] - old
-//                ContentValues contentValues = new ContentValues();
-//                contentValues.put(COLUMN_NAME_OF_HABIT, descriptions[0].getNameOfHabit());
-//                contentValues.put(COLUMN_DESCRIPTION, descriptions[0].getDescription());
-//                contentValues.put(COLUMN_NUM_OF_DAY, descriptions[0].getDayNumber());
-//
-//                return mDatabase.update(DB_NAME, contentValues,
-//                        COLUMN_DESCRIPTION + " = ?", new String[]{businesses[1].getName()});
-//            } catch (SQLException e) {
-//                return 0;
-//            }
-//        }
-//    }
 }
 

@@ -1,17 +1,16 @@
 package com.example.habit.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.habit.CustomView.ProgressTable;
 import com.example.habit.Models.Habit;
+import com.example.habit.Models.HabitSQLiteOpenHelper;
 import com.example.habit.R;
-import com.example.habit.ui.listOfHabits.ListOfHabitsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DetailHabitActivity extends AppCompatActivity {
@@ -52,12 +51,20 @@ public class DetailHabitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(isSecondClick){
-                    finish();
+                    onBackPressed();
                 }else {
+                    Habit oldHabit = null;
+                    try {
+                        oldHabit = (Habit) mHabit.clone();
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                    }
                     mHabit.setDescription(mHabit.getCurrentDay(), mEditTextDesc.getText().toString());
                     mHabit.incrementCurrentDay();
-                    Intent resultData = new Intent();
-                    resultData.putExtra(ListOfHabitsFragment.INTENT_EXTRA_DATA, mHabit);
+
+                    HabitSQLiteOpenHelper habitSQLiteOpenHelper =
+                            new HabitSQLiteOpenHelper(getApplicationContext());
+                    habitSQLiteOpenHelper.changeAsync(mHabit, oldHabit);
                     mProgressTable.completeOne();
                     mTextViewNum.setText(String.valueOf(mHabit.getCurrentDay()));
                     mActionButton.setImageResource(R.drawable.ic_baseline_arrow_back_24);
