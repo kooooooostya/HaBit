@@ -41,7 +41,7 @@ public class DetailHabitActivity extends AppCompatActivity {
 
         mTextViewNum.setText(String.valueOf(mHabit.getCurrentDay()));
         mTextViewName.setText(mHabit.getName());
-        mEditTextDesc.setText(mHabit.getDescription(mHabit.getCurrentDay()).toString());
+        mEditTextDesc.setText(mHabit.getDescriptionForDay(mHabit.getCurrentDay()).toString());
         mProgressTable.setPointsNum(mHabit.getAmountOfDays());
         mProgressTable.setActivePointsNum(mHabit.getCurrentDay());
 
